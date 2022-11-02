@@ -2,6 +2,6 @@ module IRSpectroscopy
 
 include("input-output.jl")
 
-export calculate_ΔT, calculateT
+export transmission, pp_spectrum
 
 end
