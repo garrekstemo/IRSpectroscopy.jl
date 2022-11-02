@@ -37,6 +37,7 @@ function B(ω, ω_0, Δ, γ_m, g_1, g_3_ratio)
 
     b = Vector{ComplexF64}(undef, length(ω))
 
+    g_3 = g_3_ratio * g_1
     for (i, ω_i) in enumerate(ω)
         b_i = g_3 * (2 * (2 * g_1 * (1 + g_3_ratio)) * (ω_i - ω_0) + (4 * g_1 * ( 1 + g_3_ratio)) * im * γ_m) - 4 * Δ * g_1^2
         b[i] = b_i
