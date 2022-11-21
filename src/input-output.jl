@@ -39,7 +39,7 @@ function B(ω, ω_0, Δ, γ_m, g_1, g_3_ratio)
 
     g_3 = g_3_ratio * g_1
     for (i, ω_i) in enumerate(ω)
-        b_i = g_3 * (2 * (2 * g_1 * (1 + g_3_ratio)) * (ω_i - ω_0) + (4 * g_1 * ( 1 + g_3_ratio)) * im * γ_m) - 4 * Δ * g_1^2
+        b_i = g_3 * (2 * (2 * g_1 + g_3) * (ω_i - ω_0) + (4 * g_1 + g_3) * im * γ_m) - 4 * Δ * g_1^2
         b[i] = b_i
     end
     b
@@ -84,17 +84,17 @@ end
 Pump-probe spectrum
     ΔT = T_fpu - T_0
 """
-function pp_spectrum(ω, f_pu, ω_0, ω_c, Δ, κ, g_1, g_3_ratio, N)
+function pp_spectrum(ω, f_pu, ω_0, ω_c, Δ, γ_m, κ, g_1, g_3_ratio, N)
 
     ω_12 = ω_0 - 2 * Δ
     γ_1 = 0.5 * γ_m
     γ_3 = 0.5 * 3 * γ_m
 
-    B_ω = B(ω, ω_0, γ_m, Δ, g_1, g_3_ratio)
-    A_ω = A(ω, f_pu, ω_0, γ_m, Δ, g_1, B_ω)
+    B_ω = B(ω, ω_0, Δ, γ_m, g_1, g_3_ratio)
+    A_ω = A(ω, f_pu, ω_0, Δ, γ_m, g_1, B_ω)
     T_fpu = abs2.(b_out(ω, ω_0, ω_c, ω_12, γ_1, γ_3, κ, N, A_ω))
 
-    A0 = A(ω, ω_0, g_1, Δ, γ_m, 0.0, B_ω)
+    A0 = A(ω, 0.0, ω_0, Δ, γ_m, g_1, B_ω)
     T_0 = abs2.(b_out(ω, ω_0, ω_c, ω_12, γ_1, γ_3, κ, N, A0))
 
     return T_fpu .- T_0
