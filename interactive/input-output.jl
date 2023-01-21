@@ -25,11 +25,11 @@ Ton = @lift(transmission(ω, f_pu, $(ω_0), $(ω_c), $(Δ), γ_m, κ, $(g_1), $(
 ΔT = @lift(pp_spectrum(ω, f_pu, $(ω_0), $(ω_c), $(Δ), γ_m, κ, $(g_1), $(g_3), N))
 
 
-fig = Figure(figure_padding = 20, resolution = (2300, 1900))
+fig = Figure(figure_padding = 40, resolution = (2300, 1900), fontsize = 40)
 display(fig)
 
 tbω_0 = Textbox(fig, placeholder = "$(round(Int, to_value(ω_0))) cm⁻¹", width = 300)
-flipbutton = Button(fig, label = "Flip y", width = 200)
+flipbutton = Button(fig, label = "Flip ΔT", width = 200)
 
 fig[2, 1][1, 1] = vgrid!(
     Label(fig, "Fundamental frequency"),    
@@ -54,8 +54,9 @@ ax1 = Axis(fig[1, 1:2], title = "Pump-probe spectrum", xlabel = "ω (cm⁻¹)", 
             yticklabelspace = 100.0  # plot won't resize when tick digits increase/decrease
             )
 
-lines!(ax1, ω, ΔT)
-vlines!(ax1, ω_12, linestyle = :dash, color = :firebrick4)
+lines!(ax1, ω, ΔT, label = "Nonlinear response")
+vlines!(ax1, ω_12, linestyle = :dash, color = :firebrick4, label = "Molecular excited state")
+axislegend(ax1)
 
 ax2 = Axis(fig[2, 2], title = "Transmission spectrum", xlabel = "ω (cm⁻¹)", ylabel = L"T \text{ (arb.)}", 
             xticks = LinearTicks(5), yticks = LinearTicks(5))
@@ -64,7 +65,7 @@ lines!(ax2, ω, Toff, label = "pump off")
 lines!(ax2, ω, Ton, label = "pump on")
 axislegend(ax2)
 
-Label(fig[0, :], "Vibrational Polariton Nonlinear Spectroscopy", textsize = 45)
+Label(fig[0, :], "\nQuantum model for cavity pump-probe spectroscopy\ninput-output theory\n ", fontsize = 45)
 
 
 sliderobservables = [s.value for s in sg.sliders]
