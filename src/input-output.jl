@@ -99,3 +99,26 @@ function pp_spectrum(ω, f_pu, ω_0, ω_c, Δ, γ_m, κ, g_1, g_3_ratio, N)
 
     return T_fpu .- T_0
 end
+
+
+"""
+    pp_spectrum(ω, f_pu, ω_0, ω_c, Δ, γ_1, κ, g_1, g_3_ratio, N)
+
+Pump-probe spectrum
+    ΔT = T_fpu - T_0
+"""
+function pp_spectrum(ω, f_pu, ω_0, ω_c1, ω_c2, Δ, γ_m, κ, g_1, g_3_ratio, N)
+
+    ω_12 = ω_0 - 2 * Δ
+    γ_1 = 0.5 * γ_m
+    γ_3 = 0.5 * 3 * γ_m
+
+    B_ω = B(ω, ω_0, Δ, γ_m, g_1, g_3_ratio)
+    A_ω = A(ω, f_pu, ω_0, Δ, γ_m, g_1, B_ω)
+    T_fpu = abs2.(b_out(ω, ω_0, ω_c1, ω_12, γ_1, γ_3, κ, N, A_ω))
+
+    A0 = A(ω, 0.0, ω_0, Δ, γ_m, g_1, B_ω)
+    T_0 = abs2.(b_out(ω, ω_0, ω_c2, ω_12, γ_1, γ_3, κ, N, A0))
+
+    return T_fpu .- T_0
+end
