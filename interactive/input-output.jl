@@ -1,8 +1,5 @@
-using Revise
 using GLMakie
 using IRSpectroscopy
-using SomeMakieThemes
-set_theme!(theme_retina())
 
 ω = 2050:0.1:2300
 
@@ -25,8 +22,7 @@ Ton = @lift(transmission(ω, f_pu, $(ω_0), $(ω_c), $(Δ), γ_m, κ, $(g_1), $(
 ΔT = @lift(pp_spectrum(ω, f_pu, $(ω_0), $(ω_c), $(Δ), γ_m, κ, $(g_1), $(g_3), N))
 
 
-fig = Figure(figure_padding = 40, resolution = (2300, 1900), fontsize = 40)
-display(fig)
+fig = Figure(size = (850, 800))
 
 tbω_0 = Textbox(fig, placeholder = "$(round(Int, to_value(ω_0))) cm⁻¹", width = 300)
 flipbutton = Button(fig, label = "Flip ΔT", width = 200)
@@ -51,7 +47,7 @@ sg = SliderGrid(
 
 ax1 = Axis(fig[1, 1:2], title = "Pump-probe spectrum", xlabel = "ω (cm⁻¹)", ylabel = L"ΔT = T_{f^{pu}} - T_0 \text{ (arb.)}", 
             xticks = LinearTicks(10), yticks = LinearTicks(5),
-            yticklabelspace = 100.0  # plot won't resize when tick digits increase/decrease
+            yticklabelspace = 50.0  # plot won't resize when tick digits increase/decrease
             )
 
 lines!(ax1, ω, ΔT, label = "Nonlinear response")
@@ -65,7 +61,7 @@ lines!(ax2, ω, Toff, label = "pump off")
 lines!(ax2, ω, Ton, label = "pump on")
 axislegend(ax2)
 
-Label(fig[0, :], "\nQuantum model for cavity pump-probe spectroscopy\ninput-output theory\n ", fontsize = 45)
+Label(fig[0, :], "\nQuantum model for cavity pump-probe spectroscopy\ninput-output theory\n ")
 
 
 sliderobservables = [s.value for s in sg.sliders]
@@ -89,3 +85,5 @@ on(flipbutton.clicks) do _
     ΔT[] *= -1
     autolimits!(ax1)
 end
+
+fig
