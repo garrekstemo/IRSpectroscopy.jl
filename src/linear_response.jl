@@ -22,9 +22,9 @@ function linear_transmission(ω, ω_ph, ω_v, N, g, κL, κR, κ, γ)
 end
 
 function linear_transmission_anharmonic(ω, ω_ph, ω_v1, ω_v2, N, g, transfer, κL, κR, κ, γ1, γ2)
-    N1 = N * (1 - transfer)
-    N2 = N * transfer
-    κL * κR / abs2((ω - ω_ph + im * 0.5 * κ + χ(ω, ω_v1, N1, g, γ1) + χ(ω, ω_v2, N2, g, γ2)))
+    N_ground_state = N * (1 - transfer)
+    N_excited = N * transfer
+    κL * κR / abs2((ω - ω_ph + im * 0.5 * κ + χ(ω, ω_v1, N_ground_state, g, γ1) + χ(ω, ω_v2, N_excited, g, γ2)))
 end
 
 function linear_absorption(ω, ω_ph, ω_v, κL, κ, γ, N, g)
