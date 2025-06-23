@@ -1,6 +1,7 @@
 using Revise
 using MolecularPolaritonSpectra
 using GLMakie
+include("TMM_canonical_polariton.jl")
 
 ω = 1900:0.1:2100
 
@@ -35,28 +36,37 @@ Rlin = 1 .- Tlin_off .- Alin
 ΔTlin = Tlin_on .- Tlin_off
 
 # ---------------------------------------------------------------------- #
+# Transfer Matrix
 
 
-fig = Figure(size = (900, 800))
+fig = Figure(size = (900, 600))
 
-ax1 = Axis(fig[1, 1])
+ax1 = Axis(fig[1, 1], title = "Input-Output Theory")
 lines!(ω, T_off, label = "pump off")
 lines!(ω, T_on, label = "pump on")
 
 ax2 = Axis(fig[2, 1])
-lines!(ω, ΔT, label = "Nonlinear response")
+lines!(ω, ΔT)
 # vlines!(ω_12, linestyle = :dash, color = :firebrick4, label = "Molecular excited state")
 
-ax3 = Axis(fig[1, 2])
-lines!(ω, Tlin_off, label = "Linear response")
-lines!(ω, Tlin_on, label = "Linear response")
-# lines!(ω, Alin, label = "Linear absorption")
-# lines!(ω, Rlin, label = "Linear reflection")
+ax3 = Axis(fig[1, 2], title = "Linear Response Theory")
+lines!(ω, Tlin_off)
+lines!(ω, Tlin_on)
+# lines!(ω, Alin)
+# lines!(ω, Rlin)
 
 ax4 = Axis(fig[2, 2])
-lines!(ω, ΔTlin, label = "Linear response")
+lines!(ω, ΔTlin)
+
+
+# ΔTpp = -log10.(Tpp_on ./ Tpp_off)
+ΔTpp = Tpp_on .- Tpp_off
+ax5 = Axis(fig[1, 3], title = "Transfer Matrix Method")
+lines!(νs, Tpp_off)
+lines!(νs, Tpp_on)
+
+ax6 = Axis(fig[2, 3])
+lines!(νs, ΔTpp)
+
 axislegend(ax1)
-
-
-
 fig
