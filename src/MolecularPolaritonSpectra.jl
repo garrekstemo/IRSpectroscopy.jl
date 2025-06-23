@@ -1,4 +1,4 @@
-module IRSpectroscopy
+module MolecularPolaritonSpectra
 
 include("input-output.jl")
 include("linear_response.jl")
