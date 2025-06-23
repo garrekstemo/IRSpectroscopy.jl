@@ -23,7 +23,7 @@ lines!(mol.wavenumber, mol.on ./ maximum(-mol.on) .+ offset, label = "on")
 
 ax2 = Axis(fig[2, 1])
 lines!(cav.wavenumber, ΔA_cav ./ maximum(ΔA_cav))
-# lines!(cav.wavenumber, diff_cav ./ maximum(diff_cav))
+lines!(cav.wavenumber, diff_cav ./ maximum(diff_cav))
 
 lines!(cav.wavenumber, cav.off ./ maximum(-cav.off) .+ offset, label = "off")
 lines!(cav.wavenumber, cav.on ./ maximum(-cav.on) .+ offset, label = "on")
