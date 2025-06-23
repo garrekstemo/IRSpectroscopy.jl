@@ -1,4 +1,5 @@
 [deps]
 GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
 IRSpectroscopy = "1e5028ab-630d-49fc-bc0a-854029bc4e02"
+LVM = "76785837-0c5d-45c2-90b8-8e8ea9f9a99d"
 Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"

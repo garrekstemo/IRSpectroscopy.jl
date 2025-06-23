@@ -1,8 +1,12 @@
 module IRSpectroscopy
 
 include("input-output.jl")
+include("linear_response.jl")
 
-export transmission,
-       pp_spectrum
+export io_transmission,
+       linear_transmission,
+       linear_transmission_anharmonic,
+       linear_absorption
+
 
 end
