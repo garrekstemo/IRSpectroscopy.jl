@@ -1,6 +1,7 @@
 using Revise
-using IRSpectroscopy
+using MolecularPolaritonSpectra
 using GLMakie
+include("TMM_canonical_cavity.jl")
 
 ω = 1900:0.1:2100
 
