@@ -6,12 +6,12 @@ include("dielectric_functions.jl")
 
 export io_transmission,
        linear_transmission,
-       linear_transmission_anharmonic,
        linear_absorption,
        dielectric_real,
        dielectric_imag,
        nk,
-       nk2
+       nk2,
+       χ
 
 
 end
