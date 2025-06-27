@@ -1,7 +1,7 @@
 using Revise
 using MolecularPolaritonSpectra
 using GLMakie
-include("TMM_canonical_polariton.jl")
+include("../transfer_matrix/TMM_canonical_polariton.jl")
 
 ω = 1900:0.1:2100
 
