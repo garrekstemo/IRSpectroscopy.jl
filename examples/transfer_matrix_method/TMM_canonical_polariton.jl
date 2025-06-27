@@ -6,7 +6,7 @@ using MolecularPolaritonSpectra
 λs = range(4.76, 5.26, step=0.002)
 νs = 10^4 ./ λs
 nperiods = 5
-n1, n2 = 1.3, 2.2
+n1, n2 = 1.3, 2.2ds
 t1 = λ_0 / (4 * n1)
 t2 = λ_0 / (4 * n2)
 

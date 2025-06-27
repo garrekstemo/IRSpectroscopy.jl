@@ -15,7 +15,7 @@ DataInspector()
 offset = 2
 ax1 = Axis(fig[1, 1])
 lines!(mol.wavenumber, ΔA_mol ./ maximum(ΔA_mol))
-# lines!(mol.wavenumber, diff_mol ./ maximum(diff_mol))
+lines!(mol.wavenumber, diff_mol ./ maximum(diff_mol))
 
 lines!(mol.wavenumber, mol.off ./ maximum(-mol.off) .+ offset, label = "off")
 lines!(mol.wavenumber, mol.on ./ maximum(-mol.on) .+ offset, label = "on")
