@@ -21,14 +21,20 @@ c = 2.99792458e10  # Speed of light in cm/s
 κ = 15.0
 κL = κR = 0.5 * κ
 N = 5e6
+excited_fraction = 0.015
+N1 = N * (1 - excited_fraction)
+N2 = N * excited_fraction
 
 μ = 1e8
 temp = 300.0  # temperature in Kelvin
 β = 1 / (kB * temp)  # inverse temperature
 g = abs(λ_v * μ) * tanh(β * ħ * ω_v / 2)
 
-T_off = linear_transmission.(νs, ν_c, ν_v, N, g, κL, κR, κ, γ1)
-T_on = linear_transmission_anharmonic.(νs, ν_c, ν_v, ν_12, N, g, 0.01, κL, κR, κ, γ1, γ2)
+susceptibility_off = χ.(νs, ν_v, N, g, γ1)
+susceptibility_on = χ.(νs, ν_v, N1, g, γ1) .+ χ.(νs, ν_12, N2, g, γ2)
+T_off = linear_transmission.(νs, susceptibility_off, ν_c,κL, κR, κ)
+T_on = linear_transmission.(νs, susceptibility_on, ν_c, κL, κR, κ)
+
 A = linear_absorption.(νs, ν_c, ν_v, κL, κ, γ1, N, g)
 R = 1 .- T_off .- A
 ΔT = T_on .- T_off

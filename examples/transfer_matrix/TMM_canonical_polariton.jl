@@ -6,7 +6,7 @@ using MolecularPolaritonSpectra
 λs = range(4.76, 5.26, step=0.002)
 νs = 10^4 ./ λs
 nperiods = 5
-n1, n2 = 1.3, 2.2ds
+n1, n2 = 1.3, 2.2
 t1 = λ_0 / (4 * n1)
 t2 = λ_0 / (4 * n2)
 
@@ -35,3 +35,14 @@ layers2 = [air, repeat(dbr_unit, nperiods)..., l_middle2, repeat(reverse(dbr_uni
 
 Tpp_off, Tss, Rpp, Rss = map(x -> collect(x), zip((calculate_tr(λ, layers) for λ in λs)...))
 Tpp_on, Tss_on, Rpp_on, Rss_on = map(x -> collect(x), zip((calculate_tr(λ, layers2) for λ in λs)...))
+
+
+fig = Figure(size = (800, 600))
+DataInspector()
+ax1 = Axis(fig[1, 1], xlabel = "Wavelength (nm)", ylabel = "Transmission")
+lines!(ax1, λs, Tpp_off, label = "Tpp off")
+lines!(ax1, λs, Tss, label = "Tss off")
+
+ax2 = Axis(fig[2, 1], xlabel = "Wavelength (nm)", ylabel = "Reflection")
+lines!(νs, Tpp_off .- Tpp_on)
+fig

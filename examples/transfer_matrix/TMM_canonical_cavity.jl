@@ -2,7 +2,7 @@ using TransferMatrix
 using GLMakie
 
 λ_0 = 5.0
-λs = range(3.2, 11, length = 700)
+λs = range(3.2, 11, length = 300)
 νs = 10^4 ./ λs
 nperiods = 4
 n1, n2 = 1.2, 2.6
@@ -16,7 +16,7 @@ l2 = Layer(λs, fill(n2, length(λs)), zeros(length(λs)), t2)
 dbr_unit = [l1, l2]
 layers = [air, repeat(dbr_unit, nperiods)..., air, repeat(reverse(dbr_unit), nperiods)..., air]
 
-# Tpp, Tss, Rpp, Rss = map(x -> collect(x), zip((calculate_tr(λ, layers) for λ in λs)...))
+Tpp, Tss, Rpp, Rss = map(x -> collect(x), zip((calculate_tr(λ, layers) for λ in λs)...))
 
 
 fig = Figure(size = (900, 600))

@@ -1,6 +1,6 @@
-# function χ(ω, ω_v, N, g, γ)
-#     -N * abs2(g) / (ω - ω_v + im * 0.5 * γ)
-# end
+function χ(ω, ω_v, N, g, γ)
+    -N * abs2(g) / (ω - ω_v + im * 0.5 * γ)
+end
 function χ(ω, p::Vector, μ, ω_zy, N, γ, V_mol)
     a = zeros(ComplexF64, length(ω))
     for i in eachindex(ω)
